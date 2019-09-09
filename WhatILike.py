@@ -1,0 +1,7 @@
+print("Hockey")
+print("Socializing")
+print("Reading")
+print("Sweats")
+print("Sleep")
+print("Exercise")
+print("People")
