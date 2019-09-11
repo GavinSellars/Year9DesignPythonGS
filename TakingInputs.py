@@ -12,4 +12,4 @@ b = int(b)
 product = a * b
 #Output
 print("Hi, "+name)
-print("THe product of "+str(a)+" and "+str(b)+" is "+str(product)+".")
+print("The product of "+str(a)+" and "+str(b)+" is "+str(product)+".")
