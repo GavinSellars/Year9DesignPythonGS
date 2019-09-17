@@ -1,0 +1,25 @@
+import math
+
+#Input
+#What inputs are needed to calculate the volume of a cylinder?
+print("Volume of a Cylinder Formula: ")
+name = input("\tWhat is your name: ")   #takes users name
+
+radius = input("\n\tInput radius(cm): ")  #input
+radius = (float)(radius)     #cast to int
+
+height = input("\tInput height(cm): ") #input
+height = (float)(height)     #cast to int
+#Process
+#What formula is used to calculate the volume of a cylinder?
+
+volume = math.pi*radius*radius*height 
+volume=round(volume,2)
+#Output
+#What is important about the output?
+
+print("\n\t\tHi "+name+"!")
+print("\t\tGiven a cylinder with:")
+print("\t\tRadius = ", radius)
+print("\t\tHeight = ", height)
+print("\n\t\tThe volume is: "+str(volume))  
