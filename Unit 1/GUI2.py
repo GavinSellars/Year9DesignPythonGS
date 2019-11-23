@@ -1,7 +1,6 @@
 import tkinter as tk
 
-root = tk.Tk()
-root.configure(background = 'grey')
+
 
 
 #variables
@@ -9,7 +8,7 @@ titlesize=50
 labelsize=20
 labelcolour="#6fa8dc"
 submitcolour="#9fc5e8"
-weeklyspending = 5
+weeklyspending = 0
 monthlyspending = (0+weeklyspending)
 totalspending = (0+weeklyspending)
 monthlyspendingprediction = (weeklyspending*30/7)
@@ -24,6 +23,12 @@ chips = ("Chips", "Sunchips", "Popcorners", "Hardbite")
 
 drinks = ("Drinks","Herbal Tea", "Coffee", "Chocolate milk", "White milk", "xmL perrier", "perrier ymL")
 
+wheat = ("Wheat", "Cookie", "Muffin", "Croissant")
+
+frozen = ("Frozen", "Rasberry ice cream", "Lemon ice cream", "Chocolate ice cream")
+
+example = ("Example")
+
 
 
 
@@ -31,31 +36,51 @@ drinks = ("Drinks","Herbal Tea", "Coffee", "Chocolate milk", "White milk", "xmL 
 
 #functions
 def resetweek():
+	global weeklyspending
+
 	weeklyspending =  0.00
 	weekspendingvalue = tk.Label(root, bg = "white", highlightbackground = "grey", height = 2, width = 10, text = weeklyspending, font = ("georgia", 35))
 	weekspendingvalue.grid(row = 13, column = 0, columnspan = 4, sticky = "nesw")
-
+	
+	global monthlyspendingprediction
 	monthlyspendingprediction = 0.00
 	predictionsmonthvalue = tk.Label(root, bg = "white", height = 2, width = 10, highlightbackground = "grey", text = monthlyspendingprediction, font = ("georgia", 35))
 	predictionsmonthvalue.grid(row = 13, column = 4, columnspan = 4, sticky = "nesw", ipady = 10)
 
+	global budgetleft
+
+	budgetleft = (newbudget-weeklyspending)
+	budleft = tk.Label(root, bg = "white", highlightbackground = "grey", height = 2, width = 10, text = budgetleft, font = ("georgia", 35))
+	budleft.grid(row = 3, column = 4, rowspan = 3, sticky = "nesw")
 
 def resetmonth():
+	global monthlyspending
+
 	monthlyspending = 0.00
 	monthspendingvalue = tk.Label(root, bg = "white", highlightbackground = "grey", height = 2, width = 10, text = monthlyspending, font = ("georgia", 35))
 	monthspendingvalue.grid(row = 16, column = 0, columnspan = 4, sticky = "nesw")
 
-
+	global schoolyearspendingprediction
 
 	schoolyearspendingprediction = 0.00
 	predictionsschoolyearvalue = tk.Label(root, bg = "white", height = 2, width = 10, highlightbackground = "grey", text = schoolyearspendingprediction, font = ("georgia", 35))
 	predictionsschoolyearvalue.grid(row = 16, column = 4, columnspan = 4, sticky = "nesw", ipady = 10)
 
+	global weeklyspending
 
+	weeklyspending =  0.00
+	weekspendingvalue = tk.Label(root, bg = "white", highlightbackground = "grey", height = 2, width = 10, text = weeklyspending, font = ("georgia", 35))
+	weekspendingvalue.grid(row = 13, column = 0, columnspan = 4, sticky = "nesw")
+	
+	global monthlyspendingprediction
+	monthlyspendingprediction = 0.00
+	predictionsmonthvalue = tk.Label(root, bg = "white", height = 2, width = 10, highlightbackground = "grey", text = monthlyspendingprediction, font = ("georgia", 35))
+	predictionsmonthvalue.grid(row = 13, column = 4, columnspan = 4, sticky = "nesw", ipady = 10)
 
 def changeweeklybudget():
 	try:
 		budchangevalue.config(bg = "white")
+		global newbudget
 		newbudget = float(budchangevalue.get())
 
 		currentbud = tk.Label(root, bg = "white", highlightbackground = "grey", height = 2, width = 10, text = newbudget, font = ("georgia", 35))
@@ -92,23 +117,62 @@ def changeweeklybudget():
 
 
 def submititems():
-	print("This is the hard part")
+	if var3.get()!=chips[0]:
+		if var3.get()==chips[1]:
+			var3.set(chips[0])
+			global weeklyspending
+			weeklyspending = weeklyspending + 2
+			global monthlyspending
+			monthlyspending = monthlyspending + 2
+			global totalspending
+			totalspending = totalspending + 2
+			global monthlyspendingprediction
+			monthlyspendingprediction = (weeklyspending*30/7)
+			monthlyspendingprediction = round(monthlyspendingprediction, 2)
+			global schoolyearspendingprediction
+			schoolyearspendingprediction = (monthlyspending*10)
+			global budgetleft
+			budgetleft = (newbudget-weeklyspending)
+
+			totalspendingvalue = tk.Label(root, bg = "white", highlightbackground = "grey", height = 2, width = 10, text = totalspending, font = ("georgia", 35))
+			totalspendingvalue.grid(row = 10, column = 0, columnspan = 4, rowspan = 2, sticky = "nesw")
+
+
+			weekspendingvalue = tk.Label(root, bg = "white", highlightbackground = "grey", height = 2, width = 10, text = weeklyspending, font = ("georgia", 35))
+			weekspendingvalue.grid(row = 13, column = 0, columnspan = 4, sticky = "nesw")
+
+			monthspendingvalue = tk.Label(root, bg = "white", highlightbackground = "grey", height = 2, width = 10, text = monthlyspending, font = ("georgia", 35))
+			monthspendingvalue.grid(row = 16, column = 0, columnspan = 4, sticky = "nesw")
+
+			predictionsmonthvalue = tk.Label(root, bg = "white", height = 2, width = 10, highlightbackground = "grey", text = monthlyspendingprediction, font = ("georgia", 35))
+			predictionsmonthvalue.grid(row = 13, column = 4, columnspan = 4, sticky = "nesw", ipady = 10)
+
+			predictionsschoolyearvalue = tk.Label(root, bg = "white", height = 2, width = 10, highlightbackground = "grey", text = schoolyearspendingprediction, font = ("georgia", 35))
+			predictionsschoolyearvalue.grid(row = 16, column = 4, columnspan = 4, sticky = "nesw", ipady = 10)
+
+			budleft = tk.Label(root, bg = "white", highlightbackground = "grey", height = 2, width = 10, text = budgetleft, font = ("georgia", 35))
+			budleft.grid(row = 3, column = 4, rowspan = 3, sticky = "nesw")
+
+			if newbudget >= weeklyspending:
+				budanswer = tk.Label(root, bg = "green", highlightbackground = "grey", text = "You are under budget!", height = 2, width = 10, font = ("georgia", 30))
+				budanswer.grid(row = 3, column = 2, rowspan = 3, sticky = "nesw")
+
+			else:
+				budanswer = tk.Label(root, bg = "red", highlightbackground = "grey", text = "You are over budget!", height = 2, width = 10, font = ("georgia", 30))
+				budanswer.grid(row = 3, column = 2, rowspan = 3, sticky = "nesw")
 
 
 
 
 
 
-	
-	
 
 
 
 
 
-
-
-
+root = tk.Tk()
+root.configure(background = 'grey')
 
 
 
@@ -165,26 +229,30 @@ itemcat3.configure(bg="grey")
 itemcat3.grid(row = 3, column = 0)
 var3.set(chips[0])
 
-itemcat4=tk.OptionMenu(root, var4, chips)
+itemcat4=tk.OptionMenu(root, var4, frozen[0], frozen[1], frozen[2], frozen[3])
 itemcat4.configure(bg="grey")
 itemcat4.grid(row = 3, column = 1)
-var4.set(drinks[0])
+var4.set(frozen[0])
 
-itemcat5=tk.OptionMenu(root,var5,chips)
+itemcat5=tk.OptionMenu(root,var5, wheat[0], wheat[1], wheat[2], wheat[3])
 itemcat5.configure(bg="grey")
 itemcat5.grid(row = 4, column = 0)
+var5.set(wheat[0])
 
 itemcat6=tk.OptionMenu(root, var6, drinks[0], drinks[1], drinks[2], drinks[3], drinks[4], drinks[5])
 itemcat6.configure(bg="grey")
 itemcat6.grid(row = 4, column = 1)
+var6.set(drinks[0])
 
-itemcat7=tk.OptionMenu(root,var7, chips)
+itemcat7=tk.OptionMenu(root,var7, example)
 itemcat7.configure(bg="grey")
 itemcat7.grid(row = 5, column = 0)
+var7.set(example)
 
-itemcat8=tk.OptionMenu(root, var8, chips)
+itemcat8=tk.OptionMenu(root, var8, example)
 itemcat8.configure(bg="grey")
 itemcat8.grid(row = 5, column = 1)
+var8.set(example)
 
 #submit buttons
 submititems = tk.Button(root, text = "submit", highlightbackground = submitcolour, command = submititems)
@@ -212,8 +280,8 @@ totalspendingwidget.grid(row = 9, column = 0, columnspan = 4, sticky = "nesw")
 totalspendingvalue = tk.Label(root, bg = "white", highlightbackground = "grey", height = 2, width = 10, text = totalspending, font = ("georgia", 35))
 totalspendingvalue.grid(row = 10, column = 0, columnspan = 4, rowspan = 2, sticky = "nesw")
 
-weekspending = tk.Label(root, text = "Spending this week", bg =labelcolour, font = ("georgia", labelsize))
-weekspending.grid(row = 12, column = 0, columnspan = 4, sticky = "nesw")
+weekspendinglabel = tk.Label(root, text = "Spending this week", bg =labelcolour, font = ("georgia", labelsize))
+weekspendinglabel.grid(row = 12, column = 0, columnspan = 4, sticky = "nesw")
 
 weekspendingvalue = tk.Label(root, bg = "white", highlightbackground = "grey", height = 2, width = 10, text = weeklyspending, font = ("georgia", 35))
 weekspendingvalue.grid(row = 13, column = 0, columnspan = 4, sticky = "nesw")
