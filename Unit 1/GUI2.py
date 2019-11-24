@@ -9,11 +9,12 @@ labelsize=20
 labelcolour="#6fa8dc"
 submitcolour="#9fc5e8"
 weeklyspending = 0
-monthlyspending = (0+weeklyspending)
-totalspending = (0+weeklyspending)
+monthlyspending = 0
+totalspending = 0
 monthlyspendingprediction = (weeklyspending*30/7)
 monthlyspendingprediction = round(monthlyspendingprediction, 2)
 schoolyearspendingprediction = (monthlyspending*10)
+schoolyearspendingprediction = round(schoolyearspendingprediction, 2)
 newbudget = 0
 budgetleft = (newbudget-weeklyspending)
 
@@ -25,7 +26,7 @@ drinks = ("Drinks","Herbal Tea", "Coffee", "Chocolate milk", "White milk", "xmL 
 
 wheat = ("Wheat", "Cookie", "Muffin", "Croissant")
 
-frozen = ("Frozen", "Rasberry ice cream", "Lemon ice cream", "Chocolate ice cream")
+frozen = ("Frozen", "Ice cream", "Popsicle")
 
 example = ("Example")
 
@@ -35,6 +36,68 @@ example = ("Example")
 
 
 #functions
+def submititemsfunctionality(value, catzero, varnumber):
+	varnumber.set(catzero[0])
+
+	global weeklyspending
+		
+	global monthlyspending
+	
+	global totalspending
+			
+	global monthlyspendingprediction
+			
+	global schoolyearspendingprediction
+			
+	global budgetleft
+	
+
+
+	weeklyspending = weeklyspending + value
+	weeklyspending = round(weeklyspending, 2)
+			
+	monthlyspending = monthlyspending + value
+	monthlyspending = round(monthlyspending, 2)
+
+	totalspending = totalspending + value
+	totalspending = round(totalspending, 2)
+
+	monthlyspendingprediction = (weeklyspending*30/7)
+	monthlyspendingprediction = round(monthlyspendingprediction, 2)
+
+	schoolyearspendingprediction = (monthlyspending*10)
+	schoolyearspendingprediction = round(schoolyearspendingprediction, 2)
+
+	budgetleft = (newbudget-weeklyspending)
+	budgetleft = round(budgetleft, 2)
+		
+	totalspendingvalue = tk.Label(root, bg = "white", highlightbackground = "grey", height = 2, width = 10, text = totalspending, font = ("georgia", 35))
+	totalspendingvalue.grid(row = 10, column = 0, columnspan = 4, rowspan = 2, sticky = "nesw")
+
+
+	weekspendingvalue = tk.Label(root, bg = "white", highlightbackground = "grey", height = 2, width = 10, text = weeklyspending, font = ("georgia", 35))
+	weekspendingvalue.grid(row = 13, column = 0, columnspan = 4, sticky = "nesw")
+
+	monthspendingvalue = tk.Label(root, bg = "white", highlightbackground = "grey", height = 2, width = 10, text = monthlyspending, font = ("georgia", 35))
+	monthspendingvalue.grid(row = 16, column = 0, columnspan = 4, sticky = "nesw")
+
+	predictionsmonthvalue = tk.Label(root, bg = "white", height = 2, width = 10, highlightbackground = "grey", text = monthlyspendingprediction, font = ("georgia", 35))
+	predictionsmonthvalue.grid(row = 13, column = 4, columnspan = 4, sticky = "nesw", ipady = 10)
+
+	predictionsschoolyearvalue = tk.Label(root, bg = "white", height = 2, width = 10, highlightbackground = "grey", text = schoolyearspendingprediction, font = ("georgia", 35))
+	predictionsschoolyearvalue.grid(row = 16, column = 4, columnspan = 4, sticky = "nesw", ipady = 10)
+
+	budleft = tk.Label(root, bg = "white", highlightbackground = "grey", height = 2, width = 10, text = budgetleft, font = ("georgia", 35))
+	budleft.grid(row = 3, column = 4, rowspan = 3, sticky = "nesw")
+
+	if newbudget >= weeklyspending:
+		budanswer = tk.Label(root, bg = "green", highlightbackground = "grey", text = "You are under budget!", height = 2, width = 10, font = ("georgia", 30))
+		budanswer.grid(row = 3, column = 2, rowspan = 3, sticky = "nesw")
+
+	else:
+		budanswer = tk.Label(root, bg = "red", highlightbackground = "grey", text = "You are over budget!", height = 2, width = 10, font = ("georgia", 30))
+		budanswer.grid(row = 3, column = 2, rowspan = 3, sticky = "nesw")
+
 def resetweek():
 	global weeklyspending
 
@@ -52,6 +115,16 @@ def resetweek():
 	budgetleft = (newbudget-weeklyspending)
 	budleft = tk.Label(root, bg = "white", highlightbackground = "grey", height = 2, width = 10, text = budgetleft, font = ("georgia", 35))
 	budleft.grid(row = 3, column = 4, rowspan = 3, sticky = "nesw")
+
+
+	if newbudget >= weeklyspending:
+			budanswer = tk.Label(root, bg = "green", highlightbackground = "grey", text = "You are under budget!", height = 2, width = 10, font = ("georgia", 30))
+			budanswer.grid(row = 3, column = 2, rowspan = 3, sticky = "nesw")
+
+	else:
+		budanswer = tk.Label(root, bg = "red", highlightbackground = "grey", text = "You are over budget!", height = 2, width = 10, font = ("georgia", 30))
+		budanswer.grid(row = 3, column = 2, rowspan = 3, sticky = "nesw")
+
 
 def resetmonth():
 	global monthlyspending
@@ -77,17 +150,35 @@ def resetmonth():
 	predictionsmonthvalue = tk.Label(root, bg = "white", height = 2, width = 10, highlightbackground = "grey", text = monthlyspendingprediction, font = ("georgia", 35))
 	predictionsmonthvalue.grid(row = 13, column = 4, columnspan = 4, sticky = "nesw", ipady = 10)
 
+	global budgetleft
+
+	budgetleft = (newbudget-weeklyspending)
+	budleft = tk.Label(root, bg = "white", highlightbackground = "grey", height = 2, width = 10, text = budgetleft, font = ("georgia", 35))
+	budleft.grid(row = 3, column = 4, rowspan = 3, sticky = "nesw")
+
+
+
+	if newbudget >= weeklyspending:
+		budanswer = tk.Label(root, bg = "green", highlightbackground = "grey", text = "You are under budget!", height = 2, width = 10, font = ("georgia", 30))
+		budanswer.grid(row = 3, column = 2, rowspan = 3, sticky = "nesw")
+
+	else:
+		budanswer = tk.Label(root, bg = "red", highlightbackground = "grey", text = "You are over budget!", height = 2, width = 10, font = ("georgia", 30))
+		budanswer.grid(row = 3, column = 2, rowspan = 3, sticky = "nesw")
+
 def changeweeklybudget():
 	try:
 		budchangevalue.config(bg = "white")
 		global newbudget
 		newbudget = float(budchangevalue.get())
+		newbudget = round(newbudget, 2)
 
 		currentbud = tk.Label(root, bg = "white", highlightbackground = "grey", height = 2, width = 10, text = newbudget, font = ("georgia", 35))
 		currentbud.grid(row = 3, column = 3, rowspan = 3, sticky = "nesw")
 
 		budchangevalue.delete(0, tk.END)
 		budgetleft = (newbudget-weeklyspending)
+		budgetleft = round(budgetleft, 2)
 		budleft = tk.Label(root, bg = "white", highlightbackground = "grey", height = 2, width = 10, text = budgetleft, font = ("georgia", 35))
 		budleft.grid(row = 3, column = 4, rowspan = 3, sticky = "nesw")
 
@@ -119,57 +210,69 @@ def changeweeklybudget():
 def submititems():
 	if var3.get()!=chips[0]:
 		if var3.get()==chips[1]:
-			var3.set(chips[0])
-			global weeklyspending
-			weeklyspending = weeklyspending + 2
-			global monthlyspending
-			monthlyspending = monthlyspending + 2
-			global totalspending
-			totalspending = totalspending + 2
-			global monthlyspendingprediction
-			monthlyspendingprediction = (weeklyspending*30/7)
-			monthlyspendingprediction = round(monthlyspendingprediction, 2)
-			global schoolyearspendingprediction
-			schoolyearspendingprediction = (monthlyspending*10)
-			global budgetleft
-			budgetleft = (newbudget-weeklyspending)
-
-			totalspendingvalue = tk.Label(root, bg = "white", highlightbackground = "grey", height = 2, width = 10, text = totalspending, font = ("georgia", 35))
-			totalspendingvalue.grid(row = 10, column = 0, columnspan = 4, rowspan = 2, sticky = "nesw")
-
-
-			weekspendingvalue = tk.Label(root, bg = "white", highlightbackground = "grey", height = 2, width = 10, text = weeklyspending, font = ("georgia", 35))
-			weekspendingvalue.grid(row = 13, column = 0, columnspan = 4, sticky = "nesw")
-
-			monthspendingvalue = tk.Label(root, bg = "white", highlightbackground = "grey", height = 2, width = 10, text = monthlyspending, font = ("georgia", 35))
-			monthspendingvalue.grid(row = 16, column = 0, columnspan = 4, sticky = "nesw")
-
-			predictionsmonthvalue = tk.Label(root, bg = "white", height = 2, width = 10, highlightbackground = "grey", text = monthlyspendingprediction, font = ("georgia", 35))
-			predictionsmonthvalue.grid(row = 13, column = 4, columnspan = 4, sticky = "nesw", ipady = 10)
-
-			predictionsschoolyearvalue = tk.Label(root, bg = "white", height = 2, width = 10, highlightbackground = "grey", text = schoolyearspendingprediction, font = ("georgia", 35))
-			predictionsschoolyearvalue.grid(row = 16, column = 4, columnspan = 4, sticky = "nesw", ipady = 10)
-
-			budleft = tk.Label(root, bg = "white", highlightbackground = "grey", height = 2, width = 10, text = budgetleft, font = ("georgia", 35))
-			budleft.grid(row = 3, column = 4, rowspan = 3, sticky = "nesw")
-
-			if newbudget >= weeklyspending:
-				budanswer = tk.Label(root, bg = "green", highlightbackground = "grey", text = "You are under budget!", height = 2, width = 10, font = ("georgia", 30))
-				budanswer.grid(row = 3, column = 2, rowspan = 3, sticky = "nesw")
-
-			else:
-				budanswer = tk.Label(root, bg = "red", highlightbackground = "grey", text = "You are over budget!", height = 2, width = 10, font = ("georgia", 30))
-				budanswer.grid(row = 3, column = 2, rowspan = 3, sticky = "nesw")
-
-
-
-
-
-
-
-
-
-
+		
+			
+			submititemsfunctionality(2, chips, var3)
+		
+		elif var3.get()==chips[2]:
+			
+		
+			submititemsfunctionality(1.5, chips, var3)
+			
+		elif var3.get()==chips[3]:
+			
+		
+			submititemsfunctionality(3, chips, var3)
+		
+	if var4.get()!=frozen[0]:
+		if var4.get()==frozen[1]:
+			
+				
+				submititemsfunctionality(3.38, frozen, var4)
+			
+		elif var4.get()==frozen[2]:
+				
+			
+				submititemsfunctionality(4, frozen, var4)
+	if var5.get()!=wheat[0]:
+		if var5.get()==wheat[1]:
+		
+			
+			submititemsfunctionality(2, wheat, var5)
+		
+		elif var5.get()==wheat[2]:
+			
+		
+			submititemsfunctionality(1.5, wheat, var5)
+			
+		elif var5.get()==wheat[3]:
+			
+		
+			submititemsfunctionality(3, wheat, var5)
+	if var6.get()!=drinks[0]:
+		if var6.get()==drinks[1]:
+		
+			
+			submititemsfunctionality(2, drinks, var6)
+		
+		elif var6.get()==drinks[2]:
+			
+		
+			submititemsfunctionality(1.5, drinks, var6)
+			
+		elif var6.get()==drinks[3]:
+			
+		
+			submititemsfunctionality(3, drinks, var6)
+		elif var6.get()==drinks[4]:
+			
+		
+			submititemsfunctionality(1.5, drinks, var6)
+			
+		elif var6.get()==drinks[5]:
+			
+		
+			submititemsfunctionality(3, drinks, var6)
 
 root = tk.Tk()
 root.configure(background = 'grey')
@@ -224,12 +327,12 @@ invalidvalue = tk.Label(root, bg = "grey", width = 10, font = ("georgia", 35))
 invalidvalue.grid(row = 6, column = 5, sticky = "nesw")
 
 #items
-itemcat3=tk.OptionMenu(root,var3, chips[0], chips[1], chips[2])
+itemcat3=tk.OptionMenu(root,var3, chips[0], chips[1], chips[2], chips[3])
 itemcat3.configure(bg="grey")
 itemcat3.grid(row = 3, column = 0)
 var3.set(chips[0])
 
-itemcat4=tk.OptionMenu(root, var4, frozen[0], frozen[1], frozen[2], frozen[3])
+itemcat4=tk.OptionMenu(root, var4, frozen[0], frozen[1], frozen[2])
 itemcat4.configure(bg="grey")
 itemcat4.grid(row = 3, column = 1)
 var4.set(frozen[0])
