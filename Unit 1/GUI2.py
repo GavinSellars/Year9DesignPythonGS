@@ -24,7 +24,7 @@ chips = ("Chips", "Sunchips", "Popcorners", "Hardbite")
 
 drinks = ("Drinks","Herbal Tea", "Coffee", "Chocolate milk", "White milk", "xmL perrier", "perrier ymL")
 
-wheat = ("Wheat", "Cookie", "Muffin", "Croissant")
+bakedgoods = ("Baked", "Cookie", "Muffin", "Croissant")
 
 frozen = ("Frozen", "Ice cream", "Popsicle")
 
@@ -234,21 +234,21 @@ def submititems():
 				
 			
 				submititemsfunctionality(4, frozen, var4)
-	if var5.get()!=wheat[0]:
-		if var5.get()==wheat[1]:
+	if var5.get()!=bakedgoods[0]:
+		if var5.get()==bakedgoods[1]:
 		
 			
-			submititemsfunctionality(2, wheat, var5)
+			submititemsfunctionality(2, bakedgoods, var5)
 		
-		elif var5.get()==wheat[2]:
+		elif var5.get()==bakedgoods[2]:
 			
 		
-			submititemsfunctionality(1.5, wheat, var5)
+			submititemsfunctionality(1.5, bakedgoods, var5)
 			
-		elif var5.get()==wheat[3]:
+		elif var5.get()==bakedgoods[3]:
 			
 		
-			submititemsfunctionality(3, wheat, var5)
+			submititemsfunctionality(3, bakedgoods, var5)
 	if var6.get()!=drinks[0]:
 		if var6.get()==drinks[1]:
 		
@@ -337,10 +337,10 @@ itemcat4.configure(bg="grey")
 itemcat4.grid(row = 3, column = 1)
 var4.set(frozen[0])
 
-itemcat5=tk.OptionMenu(root,var5, wheat[0], wheat[1], wheat[2], wheat[3])
+itemcat5=tk.OptionMenu(root,var5, bakedgoods[0], bakedgoods[1], bakedgoods[2], bakedgoods[3])
 itemcat5.configure(bg="grey")
 itemcat5.grid(row = 4, column = 0)
-var5.set(wheat[0])
+var5.set(bakedgoods[0])
 
 itemcat6=tk.OptionMenu(root, var6, drinks[0], drinks[1], drinks[2], drinks[3], drinks[4], drinks[5])
 itemcat6.configure(bg="grey")
