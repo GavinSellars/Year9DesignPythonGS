@@ -1,9 +1,15 @@
 import tkinter as tk
+import csv
 
 
 
 
 #variables
+
+#csv
+fieldnames = ["Week", "Month"]
+
+
 
 
 #sizes
@@ -108,6 +114,11 @@ def submititemsfunctionality(value, catzero, varnumber):
 def resetweek():
 	global weeklyspending
 
+	file = open('spending.csv', 'a+')
+	spendwriter = csv.DictWriter(file, fieldnames = fieldnames)
+	spendwriter.writerow({"Week": weeklyspending, "Month": 0})
+	file.close()
+
 	weeklyspending =  0.00
 	weekspendingvalue = tk.Label(root, bg = "white", highlightbackground = "grey", height = 2, width = 10, text = weeklyspending, font = ("georgia", 35))
 	weekspendingvalue.grid(row = 13, column = 0, columnspan = 4, sticky = "nesw")
@@ -133,9 +144,16 @@ def resetweek():
 		budanswer.grid(row = 3, column = 2, rowspan = 3, sticky = "nesw")
 
 
+
+
 def resetmonth():
 	global monthlyspending
+	global weeklyspending
 
+	file = open('spending.csv', 'a+')
+	spendwriter = csv.DictWriter(file, fieldnames = fieldnames)
+	spendwriter.writerow({"Week": weeklyspending, "Month": monthlyspending})
+	file.close()
 	monthlyspending = 0.00
 	monthspendingvalue = tk.Label(root, bg = "white", highlightbackground = "grey", height = 2, width = 10, text = monthlyspending, font = ("georgia", 35))
 	monthspendingvalue.grid(row = 16, column = 0, columnspan = 4, sticky = "nesw")
@@ -146,7 +164,7 @@ def resetmonth():
 	predictionsschoolyearvalue = tk.Label(root, bg = "white", height = 2, width = 10, highlightbackground = "grey", text = schoolyearspendingprediction, font = ("georgia", 35))
 	predictionsschoolyearvalue.grid(row = 16, column = 4, columnspan = 4, sticky = "nesw", ipady = 10)
 
-	global weeklyspending
+	
 
 	weeklyspending =  0.00
 	weekspendingvalue = tk.Label(root, bg = "white", highlightbackground = "grey", height = 2, width = 10, text = weeklyspending, font = ("georgia", 35))
