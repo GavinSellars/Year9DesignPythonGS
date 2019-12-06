@@ -1,5 +1,6 @@
 import tkinter as tk
 import csv
+from tkinter import messagebox
 
 
 
@@ -8,9 +9,6 @@ import csv
 
 #csv
 fieldnames = ["Week", "Month"]
-
-
-
 
 #sizes
 titlesize=50
@@ -35,7 +33,7 @@ budgetleft = (newbudget-weeklyspending)
 #items
 chips = ("Chips", "Sunchips", "Popcorners", "Hardbite")
 
-drinks = ("Drinks","Herbal Tea", "Coffee", "Chocolate milk", "White milk", "xmL perrier", "perrier ymL")
+drinks = ("Drinks","Urban Zen tea", "Coffee", "Small milk (any type)", "Large milk (any type)", "300mL perrier", "perrier 500mL")
 
 bakedgoods = ("Baked", "Cookie", "Muffin", "Croissant")
 
@@ -143,9 +141,6 @@ def resetweek():
 		budanswer = tk.Label(root, bg = "red", highlightbackground = "grey", text = "You are over budget!", height = 2, width = 10, font = ("georgia", 30))
 		budanswer.grid(row = 3, column = 2, rowspan = 3, sticky = "nesw")
 
-
-
-
 def resetmonth():
 	global monthlyspending
 	global weeklyspending
@@ -237,17 +232,17 @@ def submititems():
 		if var3.get()==chips[1]:
 		
 			
-			submititemsfunctionality(2, chips, var3)
+			submititemsfunctionality(1.53, chips, var3)
 		
 		elif var3.get()==chips[2]:
 			
 		
-			submititemsfunctionality(1.5, chips, var3)
+			submititemsfunctionality(1.75, chips, var3)
 			
 		elif var3.get()==chips[3]:
 			
 		
-			submititemsfunctionality(3, chips, var3)
+			submititemsfunctionality(2.25, chips, var3)
 		
 	if var4.get()!=frozen[0]:
 		if var4.get()==frozen[1]:
@@ -258,7 +253,7 @@ def submititems():
 		elif var4.get()==frozen[2]:
 				
 			
-				submititemsfunctionality(4, frozen, var4)
+				submititemsfunctionality(3.38, frozen, var4)
 	if var5.get()!=bakedgoods[0]:
 		if var5.get()==bakedgoods[1]:
 		
@@ -278,26 +273,39 @@ def submititems():
 		if var6.get()==drinks[1]:
 		
 			
-			submititemsfunctionality(2, drinks, var6)
+			submititemsfunctionality(3.38, drinks, var6)
 		
 		elif var6.get()==drinks[2]:
 			
 		
-			submititemsfunctionality(1.5, drinks, var6)
+			submititemsfunctionality(1, drinks, var6)
 			
 		elif var6.get()==drinks[3]:
 			
 		
-			submititemsfunctionality(3, drinks, var6)
+			submititemsfunctionality(1.41, drinks, var6)
 		elif var6.get()==drinks[4]:
 			
 		
-			submititemsfunctionality(1.5, drinks, var6)
+			submititemsfunctionality(2.25, drinks, var6)
 			
 		elif var6.get()==drinks[5]:
 			
 		
-			submititemsfunctionality(3, drinks, var6)
+			submititemsfunctionality(1.98, drinks, var6)
+		elif var6.get()==drinks[6]:
+			
+		
+			submititemsfunctionality(2.25, drinks, var6)
+
+def on_closing():
+	print("closing")
+	if messagebox.askokcancel("Quit", "Do you want to quit?"):
+		root.destroy()
+
+
+
+
 
 root = tk.Tk()
 root.configure(background = 'grey')
@@ -469,5 +477,5 @@ thankyoumessage.grid(row = 18, column = 3, columnspan = 2)
 
 
 
-
+root.protocol("WM_DELETE_WINDOW", on_closing)
 root.mainloop()
